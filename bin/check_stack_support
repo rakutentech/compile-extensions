@@ -3,6 +3,12 @@
 require 'yaml'
 manifest_path = File.join(File.dirname(__FILE__), '..', '..', 'manifest.yml')
 manifest = YAML.load_file(manifest_path)
+
+if ENV['SKIP_CF_STACK_CHECK'] == "true"
+  # Skip stack check and exit with non-zero code
+  exit 0
+end
+
 dependency = manifest['dependencies'].find do |dependency|
   dependency['cf_stacks'].include?(ENV['CF_STACK'])
 end
