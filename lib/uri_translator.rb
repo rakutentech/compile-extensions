@@ -12,6 +12,7 @@ module CompileExtensions
       translated_uri = dependencies.find_translated_url(uri)
 
       if translated_uri.nil?
+        puts "DEPENDENCY_MISSING_IN_MANIFEST: #{filter_uri(uri)}"
         exit 1
       end
 
@@ -19,10 +20,6 @@ module CompileExtensions
         filtered_uri = filter_uri(translated_uri)
         file_path = File.join(cache_path, filtered_uri.gsub(/[\/:\?&]/, '_'))
         translated_uri = "file://#{file_path}"
-      end
-
-      if ENV['BP_DEBUG']
-        STDERR.puts "DEBUG: #{File.basename(__FILE__)}: #{translated_uri}"
       end
 
       translated_uri
