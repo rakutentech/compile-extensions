@@ -132,6 +132,8 @@ module CompileExtensions
     end
 
     def dependency_satisfies_current_stack(dependency)
+      # This is patched by rakutentech to skip stack check.
+      return true
       dependency['cf_stacks'].include?(stack)
     end
 
